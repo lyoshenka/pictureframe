@@ -5,15 +5,48 @@
 
 <!--    <link rel="stylesheet" href="supersized.css" type="text/css" media="screen" /> -->
     <link rel="stylesheet" href="flickr.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
 
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
 		<script type="text/javascript" src="jquery.easing.min.js"></script>
 <!--		<script type="text/javascript" src="supersized.3.2.7.js"></script> -->
 		<script type="text/javascript" src="supersized.flickr.1.1.2.js"></script>
-<!--		<script type="text/javascript" src="script.js"></script> -->
 		<script type="text/javascript" src="flickr.js"></script>
 
+    <!-- <link href="vendor/zweatherfeed/jquery.zweatherfeed.css" rel="stylesheet" type="text/css" />
+    <script src="vendor/zweatherfeed/jquery.zweatherfeed.min.js" type="text/javascript"></script> -->
+
+    <script src="vendor/simpleWeather/jquery.simpleWeather.js" type="text/javascript"></script>
+    <script src="http://www.geoplugin.net/javascript.gp" type="text/javascript"></script>
+
+    <script type="text/javascript" src="script.js"></script>
 	</head>
   <body>
+    <div id="clock">
+      <span class="hour"></span>:<span class="minute"></span> <span class="meridiem"></span>
+    </div>
+    
+    <div id="weather">
+      <h2>Today</h2>
+      <div class="day today">
+        <div class="temp">
+          <span class="number"></span>
+          <span class="unit"></span>
+          <div class="highlow">
+            <span class="high"></span>
+            <span class="low"></span>
+          </div>
+        </div>
+        <div class="description"></div>
+      </div>
+      <h2>Tomorrow</h2>
+      <div class="day tomorrow">
+        <div class="temp">
+          <span class="high"></span> | <span class="low"></span>
+        </div>
+        <div class="description"></div>
+      </div>
+      <div class="updated"></div>
+    </div>
   </body>
 </html>

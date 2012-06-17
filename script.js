@@ -1,49 +1,85 @@
 $(document).ready(function(){
-  $.supersized({
-	
-    // Functionality
-		slideshow         : 1,			// Slideshow on/off
-		autoplay				  :	1,			// Slideshow starts playing automatically
-		start_slide       : 0,			// Start slide (0 is random)
-		stop_loop				  :	0,			// Pauses slideshow on last slide
-		random					  : 1,			// Randomize slide order (Ignores start slide)
-		slide_interval    : 10 * 1000,		// Length between transitions (ms)
-		transition        : 1, 			// 0-None, 1-Fade, 2-Slide Top, 3-Slide Right, 4-Slide Bottom, 5-Slide Left, 6-Carousel Right, 7-Carousel Left
-		transition_speed	:	2 * 1000,		// Speed of transition
-		new_window				:	1,			// Image links open in new window/tab
-		pause_hover       : 0,			// Pause slideshow on hover
-		keyboard_nav      : 1,			// Keyboard navigation on/off
-		performance				:	1,			// 0-Normal, 1-Hybrid speed/quality, 2-Optimizes image quality, 3-Optimizes transition speed // (Only works for Firefox/IE, not Webkit)
-		image_protect			:	1,			// Disables image dragging and right click with Javascript
-															   
-		// Size & Position						   
-		min_width		        : 0,			// Min width allowed (in pixels)
-		min_height		      : 0,			// Min height allowed (in pixels)
-		vertical_center     : 1,			// Vertically center background
-		horizontal_center   : 1,			// Horizontally center background
-		fit_always				  :	1,			// Image will never exceed browser width or height (Ignores min. dimensions)
-		fit_portrait        : 0,			// Portrait images will not exceed browser height
-		fit_landscape			  : 0,			// Landscape images will not exceed browser width
-														   
-		// Components							
-		slide_links				    :	false,	// Individual links for each slide (Options: false, 'num', 'name', 'blank')
-		thumb_links				    :	0,			// Individual thumb links for each slide
-		thumbnail_navigation  : 0,			// Thumbnail navigation
-		slides : [			// Slideshow Images
-		  {image : 'http://buildinternet.s3.amazonaws.com/projects/supersized/3.2/slides/kazvan-1.jpg'},
-			{image : 'http://buildinternet.s3.amazonaws.com/projects/supersized/3.2/slides/kazvan-2.jpg'},
-			{image : 'http://buildinternet.s3.amazonaws.com/projects/supersized/3.2/slides/kazvan-3.jpg'},
-			{image : 'http://buildinternet.s3.amazonaws.com/projects/supersized/3.2/slides/wojno-1.jpg'},
-			{image : 'http://buildinternet.s3.amazonaws.com/projects/supersized/3.2/slides/wojno-2.jpg'},
-			{image : 'http://buildinternet.s3.amazonaws.com/projects/supersized/3.2/slides/wojno-3.jpg'},
-			{image : 'http://buildinternet.s3.amazonaws.com/projects/supersized/3.2/slides/shaden-1.jpg'},
-			{image : 'http://buildinternet.s3.amazonaws.com/projects/supersized/3.2/slides/shaden-2.jpg'},
-			{image : 'http://buildinternet.s3.amazonaws.com/projects/supersized/3.2/slides/shaden-3.jpg'}
-	  ],
-											
-		// Theme Options			   
-		progress_bar : 0,			// Timer for each slide							
-		mouse_scrub : 0
-				
+	var clockFn = function() {
+		var now = new Date(),
+		    hour = now.getHours(),
+		    min = now.getMinutes(),
+		    meridiem = 'am';
+
+		if (hour > 12) {
+			hour = hour - 12;
+			meridiem = 'pm';
+		}
+
+//		if (hour < 10) {
+//			hour = "0" + hour;
+//		}
+
+		if (min < 10) {
+			min = "0" + min;
+		}
+
+		$('#clock')
+			.find('.hour').html(hour).end()
+			.find('.minute').html(min).end()
+			.find('.meridiem').html(meridiem).end();
+	};
+
+	clockFn();
+	setInterval(clockFn, 2000);
+
+	// center horizontally
+	center = function() {
+		$('#clock, #weather').each(function() {
+			el = $(this);
+			el.css("left", Math.max(0, (($(window).width() - el.outerWidth()) / 2) + $(window).scrollLeft()) + "px");
+		});
+	}
+	center();
+	$(window).resize(center);
+
+	//$('#weather').weatherfeed(['UKXX0085','EGXX0011','UKXX0061','CAXX0518','CHXX0049']);
+	$.simpleWeather({
+    location: geoplugin_city() + ', ' + geoplugin_region() + ', ' + geoplugin_countryCode(),
+    unit: 'f',
+    success: function(weather) {
+    	var div = $('#weather');
+    	console.log(weather);
+    	div
+    		.find('.today').css('background', 'url(\'' + weather.image + '\') no-repeat scroll 0% 0% transparent')
+	    		.find('.temp .number').html(weather.temp + '&deg;').end()
+	    		.find('.temp .unit').html(weather.units.temp).end()
+	    		.find('.temp .high').html('H' + weather.high + '&deg;').end()
+	    		.find('.temp .low').html('L' + weather.low + '&deg;').end()
+	    		.find('.description').html(weather.forecast).end()
+	    	.end()
+	    	.find('.tomorrow').css('background', 'url(\'' + weather.tomorrow.image + '\') no-repeat scroll 0% 0% transparent')
+	    		.find('.temp .number').html(weather.tomorrow.day).end()
+	    		.find('.temp .high').html('H' + weather.tomorrow.high + '&deg;').end()
+	    		.find('.temp .low').html('L' + weather.tomorrow.low + '&deg;').end()
+	    		.find('.description').html(weather.tomorrow.forecast).end()
+	    	.end()
+    		.find('.updated').html('Updated: ' + weather.updated).end()
+    		;
+
+    	return;
+
+    	var html='<br/><br/><br/><br/><br/>';
+      html = '<h2>'+weather.city+', '+weather.region+', '+weather.country+'</h2>';
+      html += '<p><strong>Today\'s High</strong>: '+weather.high+'&deg; '+weather.units.temp+' - <strong>Today\'s Low</strong>: '+weather.low+'&deg; '+weather.units.temp+'</p>';
+      html += '<p><strong>Current Temp</strong>: '+weather.temp+'&deg; '+weather.units.temp+' ('+weather.tempAlt+'&deg; C)</p>';
+      html += '<p><strong>Thumbnail</strong>: <img src="'+weather.thumbnail+'"></p>';
+      html += '<p><strong>Wind</strong>: '+weather.wind.direction+' '+weather.wind.speed+' '+weather.units.speed+' <strong>Wind Chill</strong>: '+weather.wind.chill+'</p>';
+      html += '<p><strong>Currently</strong>: '+weather.currently+' - <strong>Forecast</strong>: '+weather.forecast+'</p>';
+      html += '<p><img src="'+weather.image+'"></p>';
+      html += '<p><strong>Humidity</strong>: '+weather.humidity+' <strong>Pressure</strong>: '+weather.pressure+' <strong>Rising</strong>: '+weather.rising+' <strong>Visibility</strong>: '+weather.visibility+'</p>';
+      html += '<p><strong>Heat Index</strong>: '+weather.heatindex+'"></p>';
+      html += '<p><strong>Sunrise</strong>: '+weather.sunrise+' - <strong>Sunset</strong>: '+weather.sunset+'</p>';
+      html += '<p><strong>Tomorrow\'s Date</strong>: '+weather.tomorrow.day+' '+weather.tomorrow.date+'<br /><strong>Tomorrow\'s High/Low</strong>: '+weather.tomorrow.high+'/'+weather.tomorrow.low+'<br /><strong>Tomorrow\'s Forecast</strong>: '+weather.tomorrow.forecast+'<br /> <strong>Tomorrow\'s Image</strong>: '+weather.tomorrow.image+'</p>';
+      html += '<p><strong>Last updated</strong>: '+weather.updated+'</p>';
+      html += '<p><a href="'+weather.link+'">View forecast at Yahoo! Weather</a></p>';
+
+      div.html(html);
+    },
+    //error: function(error) { ... }
 	});
 });
