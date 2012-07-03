@@ -62,6 +62,7 @@ $(document).ready(function(){
 	$.simpleWeather({
     location: geoplugin_city() + ', ' + geoplugin_region() + ', ' + geoplugin_countryCode(),
     unit: 'f',
+    //error: function(error) { ... },
     success: function(weather) {
     	var div = $('#weather');
     	console.log(weather);
@@ -100,7 +101,6 @@ $(document).ready(function(){
       html += '<p><a href="'+weather.link+'">View forecast at Yahoo! Weather</a></p>';
 
       div.html(html);
-    },
-    //error: function(error) { ... }
+    }
 	});
 });
