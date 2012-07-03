@@ -1,0 +1,3 @@
+[submodule "vendor/supersized"]
+	path = vendor/supersized
+	url = git@github.com:lyoshenka/supersized.git

@@ -1,4 +1,25 @@
 $(document).ready(function(){
+	
+	$.supersized({
+    //Functionality
+    autoplay          :   1,    //Slideshow starts playing automatically
+    random            :   1,    //Randomize slide order (Ignores start slide)
+    slide_interval    :   10 * 1000, //Length between transitions
+    transition_speed  :   2 * 1000,  //Speed of transition
+    keyboard_nav      :   0,    //Keyboard navigation on/off
+    fit_always        :   1,    
+    
+    //Flickr
+    user            :   '43903481@N08', //Flickr user ID (http://idgettr.com/)
+    image_size      :   'b',            //Flickr Image Size - t,s,m,z,b  (Details: http://www.flickr.com/services/api/misc.urls.html)
+    
+    /**
+      FLICKR API KEY
+      NEED TO GET YOUR OWN -- http://www.flickr.com/services/apps/create/
+      **/
+    api_key         : 'cc29907c391eb6bbb78c94a1a68548f0'   //Flickr API Key
+  });
+
 	var clockFn = function() {
 		var now = new Date(),
 		    hour = now.getHours(),
