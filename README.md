@@ -2,7 +2,7 @@
 
 ## Try It
 
-[Demo here](https://dl-web.dropbox.com/spa/n85zew5dx8yvmra/pictureframe/public/index.html).
+[Demo here](https://dl-web.dropbox.com/spa/n85zew5dx8yvmra/pictureframe/public/index.html). There's a small glitch where the images don't show up sometimes. Just reload the page if that happens.
 
 ## Hack It
 
