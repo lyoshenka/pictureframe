@@ -1,6 +1,7 @@
 $(document).ready(function(){
 
     PF = {
+        dbAppKey: "FmEUJmiDReA=|yHkvScmfBhwwpm1JEUyjgpf5dIbFtWFYaDRmGJ80Hg==",
         urlCache: {},         // Cache Dropbox urls here
         urls: [],             // holding place for image URLs while we load them
         db:   null,           // Dropbox client
@@ -227,9 +228,7 @@ $(document).ready(function(){
     });
 
 
-    PF.db = new Dropbox.Client({
-        key: "FmEUJmiDReA=|yHkvScmfBhwwpm1JEUyjgpf5dIbFtWFYaDRmGJ80Hg==", sandbox: true
-    });
+    PF.db = new Dropbox.Client({ key: PF.dbAppKey, sandbox: true });
     PF.db.authDriver(new Dropbox.Drivers.Redirect({rememberUser: true}));
     PF.db.authenticate(function(error, client) {
       if (error) {
