@@ -1,0 +1,47 @@
+html, body {
+    background-color: black;
+}
+
+html:-webkit-full-screen .hide-on-fullscreen { display: none; }
+html:-moz-full-screen    .hide-on-fullscreen { display: none; }
+html:-ms-full-screen     .hide-on-fullscreen { display: none; }
+html:-o-full-screen      .hide-on-fullscreen { display: none; }
+html:full-screen         .hide-on-fullscreen { display: none; }
+
+.hero-alert {
+    margin-top: 50px;
+}
+
+.modal-footer {
+    text-align: left;
+}
+
+#clock {
+    position:absolute;
+    background:rgba(0,0,0,0.55);
+    color:#fff;
+    padding: 0 30px;
+    font-family:"Helvetica Neue", "Helvetica", Arial, sans-serif;
+    text-shadow: #000 0px 2px 0px;
+    top:20px;
+    right:20px;
+    font-size: 6em;
+    line-height: normal;
+}
+
+#fullscreen {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+#options {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    font-size: 2em;
+}
+#options:hover {
+    color: white;
+    cursor: pointer;
+}

@@ -1,35 +1,105 @@
-<html>
-    <head>
-        <style>
-            body {
-                background-color: black;
-                margin: 0;
-            }
-            #background {
-                height: 100%;
-                width: 100%;
-            }
-            #clock {
-              position:absolute;
-              background:rgba(0,0,0,0.55);
-              color:#fff;
-              padding: 0 30px;
-              font-family:"Helvetica Neue", "Helvetica", Arial, sans-serif;
-              text-shadow: #000 0px 2px 0px;
-              top:20px;
-              right:20px;
-              font-size: 6em;
-            }
-        </style>
-    </head>
-    <body>
-        <div id="background"></div>
-        <div id="clock">
-            <span class="hour"></span>:<span class="minute"></span> <span class="meridiem"></span>
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Picture Frame</title>
+    <meta charset="utf-8">
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  </head>
+  <body>
+    <div class="btn btn-inverse hide-on-fullscreen" id="fullscreen" style="display: none">Fullscreen</div>
+    <div id="clock" style="display: none">
+        <span class="hour"></span>:<span class="minute"></span> <span class="meridiem"></span>
+    </div>
+    <div id="options" class="hide-on-fullscreen" data-target="#optionsModal" data-toggle='modal'>
+        <i class="icon-cog"></i>
+    </div>
+    <div id="state-images">
+        <div class="modal loading">
+            <div class="modal-body">
+                <h3>Loading Images</h3>
+                <div class="progress progress-striped active">
+                    <div class="bar" style="width: 10%;"></div>
+                </div>
+            </div>
         </div>
+        <div class="modal options hide" id="optionsModal">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3>Options</h3>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <h4>Slideshow</h4>
+                    <p class="muted">Reload page for these changes to take effect.</p>
+                    <div class="control-group">
+                        <label class="control-label">Change image every</label>
+                        <div class="controls">
+                            <div class="input-append">
+                                <input class="input-mini" type="text" name="duration" />
+                                <span class="add-on">seconds</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Fade duration</label>
+                        <div class="controls">
+                            <div class="input-append">
+                                <input class="input-mini" type="text" name="fade" />
+                                <span class="add-on">seconds</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Random image order</label>
+                        <div class="controls">
+                            <input type="checkbox" name="randomOrder" />
+                        </div>
+                    </div>
+                    <h4>Extras</h4>
+                    <div class="control-group">
+                        <label class="control-label">Show clock</label>
+                        <div class="controls">
+                            <input type="checkbox" name="showClock" />
+                        </div>
+                    </div>
+                    <div class="control-group js-fullscreen-option">
+                        <label class="control-label">Show Fullscreen button</label>
+                        <div class="controls">
+                            <input type="checkbox" name="showFullscreenButton" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-primary" id="optionsSave">Save</a>
+                <a href="#" class="btn" data-dismiss="modal">Cancel</a>
+            </div>
+        </div>
+    </div>
+    <div class="container" id="state-no-images" style="display: none">
+        <div class='alert alert-error alert-block hero-alert'>
+            <h2>No Images</h2>
+            <p>
+                You don't have any images to show. Add some pictures to the <code>Apps/pictureframe</code> 
+                folder in your Dropbox, then refresh this page.
+            </p>
+        </div>
+    </div>
+    <div class="container" id="state-not-connected" style="display: none">
+        <h1>Connect to Dropbox</h1>
 
-        <script src="vendor/jquery.1.8.2.min.js"></script>
-        <script src="vendor/jquery-backstretch/jquery.backstretch.min.js"></script>
-        <script src="script.js"></script>
-    </body>
+    </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/dropbox.js/0.6.1/dropbox.min.js"></script>
+    <!-- https://raw.github.com/lyoshenka/jquery-backstretch/master/jquery.backstretch.min.js -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/underscore.js"></script>
+    <script src="js/jquery.backstretch.min.js"></script>
+    <script src="js/screenfull.min.js"></script>
+    <script src="js/jstorage.min.js"></script>
+    <script src="js/pictureframe.js"></script>
+  </body>
 </html>

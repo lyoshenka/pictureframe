@@ -1,3 +1,0 @@
-[submodule "vendor/jquery-backstretch"]
-	path = vendor/jquery-backstretch
-	url = git@github.com:lyoshenka/jquery-backstretch.git
